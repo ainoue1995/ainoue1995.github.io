@@ -72,7 +72,8 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "dev": "gatsby develop",
     "dev-mobile": "gatsby develop -H 0.0.0.0",
-    "deploy": "gatsby build && gh-pages -d public -b master"
+    "push": "gh-pages -d public -b master",
+    "deploy": "yarn build && yarn push"
   },
   "repository": {
     "type": "git",
