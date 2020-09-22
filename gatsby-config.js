@@ -103,6 +103,13 @@ module.exports = {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
+          {
+            resolve: `gatsby-remark-external-links`,
+            options: {
+              target: `_blank`,
+              rel: "noopener noreferrer"
+            }
+          },
           // Somehow need to be defined under both gatsby-plugin-mdx & gatsby-transformer-remark to work
           {
             resolve: `gatsby-remark-autolink-headers`,
@@ -126,7 +133,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-blog-mdx`,
+        name: `AkiのBlog`,
         short_name: `blog`,
         start_url: `/`,
         display: `minimal-ui`,

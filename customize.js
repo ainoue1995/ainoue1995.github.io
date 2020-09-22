@@ -4,7 +4,7 @@
 const config = {
   /* Site
   ========================================= */
-  title: `gatsby-blog-mdx`,          // Displayed in header
+  title: `AKiの雑多ブログ`,          // Displayed in header
   description: `This is my blog`,     // Site description
   maxWidth: "768px",                  // Max width of website
   enableAbout: true,                  // Enables about page
@@ -13,10 +13,10 @@ const config = {
 
   /* Profile
   ========================================= */
-  author: `Author Name`,                             // Name shows on profile
-  profileDescription: "{Edit me in customize.js}",   // Shows under author name
-  profileImageName: `profile.jpeg`,                  // Place profile.jpg/.jpeg/.png in _assets folder
-  location: "",                                      // Location under profileDescription. "" --> disabled
+  author: `Aki`,                             // Name shows on profile
+  profileDescription: "語学学習、旅行、ピアノが趣味",   // Shows under author name
+  profileImageName: `180121_akio.jpg`,                  // Place profile.jpg/.jpeg/.png in _assets folder
+  location: "Tokyo, Shibuya",                                      // Location under profileDescription. "" --> disabled
   footerLink: "",                                    // Link to page when you click footer name
 
   /* Social Media Links
@@ -24,18 +24,18 @@ const config = {
       showHeaderIcon: shows social media icon in header. When true, must have account name set
   ========================================= */
   socialMediaLinks: {
-    email:     { emailAddress: "", showHeaderIcon: true },
-    github:    { accountName: "", showHeaderIcon: true },
-    facebook:  { accountName: "", showHeaderIcon: true },
+    email: { emailAddress: "akio9095@yahoo.co.jp", showHeaderIcon: true },
+    github: { accountName: "", showHeaderIcon: true },
+    facebook: { accountName: "inoueakio", showHeaderIcon: true },
     instagram: { accountName: "", showHeaderIcon: true },
-    twitter:   { accountName: "", showHeaderIcon: true },
-    linkedIn:  { accountName: "", showHeaderIcon: true },   // Use URL after "linkedin.com/"
-    medium:    { accountName: "", showHeaderIcon: true },   // Use URL after "medium.com/@"
+    twitter: { accountName: "@Akii0205", showHeaderIcon: true },
+    linkedIn: { accountName: "", showHeaderIcon: true },   // Use URL after "linkedin.com/"
+    medium: { accountName: "", showHeaderIcon: true },   // Use URL after "medium.com/@"
   },
 
   /* Social Media Share Buttons--available below every post
   ========================================= */
-  shareButtons: { email: false, facebook: true, twitter: true, reddit: false, linkedIn: false },
+  shareButtons: { email: true, facebook: true, twitter: true, reddit: false, linkedIn: false },
 
   /* Comments
   ========================================= */
@@ -50,7 +50,7 @@ const config = {
   defaultTheme: "light",                      // Options: dark / light -- applied to first visitors
   showTimeToRead: false,                      // Shows time to read for each post in main page
   breakCodeLines: false,                      // Breaks long code lines instead of having horizontal scroll
-  faviconSrc: `_assets/icon-code.png`,        // Favicon
+  faviconSrc: `_assets/logo.gif`,        // Favicon
   gaTrackingId: ``,                           // Your google analytics tracking id--i.e. UA-*****
   googleAdSenseId: ``,                        // Your google AdSense client id--i.e. ca-pub-****
 }
