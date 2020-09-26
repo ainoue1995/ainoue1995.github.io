@@ -43,7 +43,7 @@ const IndexPage = ({ data }) => {
 
   return (
     <Layout>
-      <SEO title="Home" />
+      <SEO title="デフテックの語学旅" />
       <MainCard posts={posts} loads={loaded} />
     </Layout>
   )

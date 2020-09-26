@@ -4,19 +4,19 @@
 const config = {
   /* Site
   ========================================= */
-  title: `AKiの雑多ブログ`,          // Displayed in header
-  description: `This is my blog`,     // Site description
+  title: `デフテックの語学旅`,          // Displayed in header
+  description: `90dbの感音性難聴を持つ25歳の社会人の雑記ブログ　語学、旅行、聴覚障害について、エンジニア関係のことについて書きなぐってます`,     // Site description
   maxWidth: "768px",                  // Max width of website
   enableAbout: true,                  // Enables about page
-  siteUrl: `https://yourDomain.com/`, // For sitemap & RSS feed
+  siteUrl: `https://aki25.com`,       // For sitemap & RSS feed
   useScrollIndicator: true,           // Use scroll indicator on top of screen in posts
 
   /* Profile
   ========================================= */
   author: `Aki`,                             // Name shows on profile
-  profileDescription: "語学学習、旅行、ピアノが趣味",   // Shows under author name
-  profileImageName: `180121_akio.jpg`,                  // Place profile.jpg/.jpeg/.png in _assets folder
-  location: "Tokyo, Shibuya",                                      // Location under profileDescription. "" --> disabled
+  profileDescription: "語学学習、旅行、ピアノが趣味",    // Shows under author name
+  profileImageName: `180121_akio.jpg`,               // Place profile.jpg/.jpeg/.png in _assets folder
+  location: "Tokyo, Shibuya",                        // Location under profileDescription. "" --> disabled
   footerLink: "",                                    // Link to page when you click footer name
 
   /* Social Media Links
@@ -24,13 +24,13 @@ const config = {
       showHeaderIcon: shows social media icon in header. When true, must have account name set
   ========================================= */
   socialMediaLinks: {
-    email: { emailAddress: "akio9095@yahoo.co.jp", showHeaderIcon: true },
-    github: { accountName: "", showHeaderIcon: true },
-    facebook: { accountName: "inoueakio", showHeaderIcon: true },
-    instagram: { accountName: "", showHeaderIcon: true },
-    twitter: { accountName: "@Akii0205", showHeaderIcon: true },
-    linkedIn: { accountName: "", showHeaderIcon: true },   // Use URL after "linkedin.com/"
-    medium: { accountName: "", showHeaderIcon: true },   // Use URL after "medium.com/@"
+    email: { emailAddress: "akio9095@yahoo.co.jp", showHeaderIcon: false },
+    github: { accountName: "", showHeaderIcon: false },
+    facebook: { accountName: "inoueakio", showHeaderIcon: false },
+    instagram: { accountName: "", showHeaderIcon: false },
+    twitter: { accountName: "@Akii0205", showHeaderIcon: false },
+    linkedIn: { accountName: "", showHeaderIcon: false },   // Use URL after "linkedin.com/"
+    medium: { accountName: "", showHeaderIcon: false },   // Use URL after "medium.com/@"
   },
 
   /* Social Media Share Buttons--available below every post

@@ -19,6 +19,7 @@ import config from "../../../customize"
 import configStyles from "../../../customize-styles"
 
 const Header = ({ siteTitle, showTitle, isPostTemplate }) => {
+  // console.log("Header -> showTitle", showTitle)
   return (
     <StyledMainHeader className="main-header">
       {/* Google AdSense */}
@@ -34,7 +35,7 @@ const Header = ({ siteTitle, showTitle, isPostTemplate }) => {
 
       <StyledMainHeaderInner className="main-header-inner">
         <h1 style={{ fontSize: "1.5rem" }}>
-          {showTitle && <Link to="/">{`${siteTitle}`}</Link>}
+          {siteTitle && <Link to="/">{`${siteTitle}`}</Link>}
         </h1>
         <StyledMediaIcons>
           <HeaderIcon
