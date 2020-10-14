@@ -73,7 +73,7 @@
     "dev": "gatsby develop",
     "dev-mobile": "gatsby develop -H 0.0.0.0",
     "push": "gh-pages -d public -b master",
-    "deploy": "yarn build && echo \"example.com\" > public/CNAME && yarn push"
+    "deploy": "yarn build && echo \"aki25.com\" > public/CNAME && yarn push"
   },
   "repository": {
     "type": "git",
