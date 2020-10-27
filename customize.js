@@ -6,7 +6,7 @@ const config = {
   ========================================= */
   title: `デフテックの語学旅`,          // Displayed in header
   description: `90dbの感音性難聴を持つ25歳の社会人の雑記ブログ　語学、旅行、聴覚障害について、エンジニア関係のことについて書きなぐってます`,     // Site description
-  maxWidth: "768px",                  // Max width of website
+  maxWidth: "1200px",                  // Max width of website
   enableAbout: true,                  // Enables about page
   siteUrl: `https://aki25.com`,       // For sitemap & RSS feed
   useScrollIndicator: true,           // Use scroll indicator on top of screen in posts
@@ -51,8 +51,8 @@ const config = {
   showTimeToRead: false,                      // Shows time to read for each post in main page
   breakCodeLines: false,                      // Breaks long code lines instead of having horizontal scroll
   faviconSrc: `_assets/logo.gif`,        // Favicon
-  gaTrackingId: ``,                           // Your google analytics tracking id--i.e. UA-*****
-  googleAdSenseId: ``,                        // Your google AdSense client id--i.e. ca-pub-****
-}
+  gaTrackingId: `UA-107298351-3`,                           // Your google analytics tracking id--i.e. UA-*****
+  googleAdSenseId: `ca-pub-2711163549214174`,                        // Your google AdSense client id--i.e. ca-pub-****
+};
 
-module.exports = config
+module.exports = config;
