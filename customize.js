@@ -14,7 +14,7 @@ const config = {
   /* Profile
   ========================================= */
   author: `Aki`,                             // Name shows on profile
-  profileDescription: "語学学習、旅行、ピアノが趣味",    // Shows under author name
+  profileDescription: "40ヶ国渡航した難聴エンジニア\n語学学習、旅行、ピアノが趣味",    // Shows under author name
   profileImageName: `180121_akio.jpg`,               // Place profile.jpg/.jpeg/.png in _assets folder
   location: "Tokyo, Shibuya",                        // Location under profileDescription. "" --> disabled
   footerLink: "",                                    // Link to page when you click footer name

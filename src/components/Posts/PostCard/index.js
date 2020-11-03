@@ -9,7 +9,7 @@ import { faClock } from "@fortawesome/free-solid-svg-icons";
 // import Img from 'gatsby-image';
 
 const PostCard = ({ id, title, date, path, excerpt, timeToRead, pic }) => {
-  const splitedDate = date.split(/\//);
+  const [month, day, year] = date.split(/\//);
   return (
     <>
       <Link to={path}>
@@ -38,7 +38,8 @@ const PostCard = ({ id, title, date, path, excerpt, timeToRead, pic }) => {
               width: '100%'
             }}>
               <h3>{title}</h3>
-              <p>{splitedDate[2]}年{splitedDate[0]}月{splitedDate[1]}日</p>
+              {/* <p>{year}年{month}月{day}日</p> */}
+              <p>{year}/{month}/{day}</p>
             </div>
             {config.showTimeToRead && (
               <span>

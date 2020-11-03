@@ -196,6 +196,7 @@ class PostTemplate extends React.Component {
     const post = this.props.data.mdx;
     const isAboutPage = post.fields.slug.includes("/about");
     const savedTheme = JSON.parse(storage.getItem("theme")) || "light";
+    const [month, day, year] = post.frontmatter.date ? post.frontmatter.date.split(/\//) : null | null;
 
 
     // Customize markdown component
@@ -305,7 +306,8 @@ class PostTemplate extends React.Component {
                       marginBottom: "0.3rem",
                     }}
                   >
-                    {post.frontmatter.date}
+                    {/* {post.frontmatter.date} */}
+                    {year}/{month}/{day}
                   </p>
                 </div>
                 <Hr />
