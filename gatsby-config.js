@@ -1,6 +1,6 @@
-const config = require("./customize");
-const rss = require("./gatsby-rss");
-const remarkSlug = require(`remark-slug`);
+const config = require("./customize")
+const rss = require("./gatsby-rss")
+const remarkSlug = require(`remark-slug`)
 
 const myCustomQueries = {
   xs: '(max-width: 320px)',
@@ -8,7 +8,7 @@ const myCustomQueries = {
   md: '(max-width: 1024px)',
   l: '(max-width: 1536px)',
   // portrait: '(orientation: portrait)',
-};
+}
 
 
 module.exports = {
@@ -18,7 +18,7 @@ module.exports = {
     `gatsby-plugin-sitemap`,
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-catch-links`,
-    `gatsby-plugin-offline`,
+    `gatsby-plugin-remove-serviceworker`,
     `gatsby-transformer-remark`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-sass`,
@@ -89,6 +89,12 @@ module.exports = {
               ignoreFileExtensions: [`png`, `jpg`, `jpeg`, `bmp`, `tiff`],
             },
           },
+          {
+            resolve: 'gatsby-plugin-google-adsense',
+            options: {
+              publisherId: `pub-2711163549214174`,
+            },
+          }
         ],
       },
     },
@@ -168,4 +174,4 @@ module.exports = {
       },
     },
   ],
-};
+}

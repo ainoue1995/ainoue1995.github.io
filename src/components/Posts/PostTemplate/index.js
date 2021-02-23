@@ -1,28 +1,28 @@
-import React from "react";
-import { graphql } from "gatsby";
-import { MDXProvider } from "@mdx-js/react";
-import { MDXRenderer } from "gatsby-plugin-mdx";
-import styled from "styled-components";
-import mediumZoom from "medium-zoom";
-import storage from "local-storage-fallback";
-import { isMobile } from "react-device-detect";
-import { setThemeVars } from "../../../util/theme-helper";
-import { comments } from "../../../../customize";
-import configStyles from "../../../../customize-styles";
-import Layout from "../../Layout";
-import Hr from "../../Hr";
-import Profile from "../../Profile";
-import SEO from "../../SEO";
+import React from "react"
+import { graphql } from "gatsby"
+import { MDXProvider } from "@mdx-js/react"
+import { MDXRenderer } from "gatsby-plugin-mdx"
+import styled from "styled-components"
+import mediumZoom from "medium-zoom"
+import storage from "local-storage-fallback"
+import { isMobile } from "react-device-detect"
+import { setThemeVars } from "../../../util/theme-helper"
+import { comments } from "../../../../customize"
+import configStyles from "../../../../customize-styles"
+import Layout from "../../Layout"
+import Hr from "../../Hr"
+import Profile from "../../Profile"
+import SEO from "../../SEO"
 import {
   FacebookComments,
   DisqusComments,
   UtterancesComments,
-} from "../../Comments";
-import ToggleMode from "../../Layout/ToggleMode";
-import { theme } from "../../Shared/styles-global";
-import LinkEdgePosts from "../../LinkEdgePosts";
-import ShareButtons from "../../ShareButtons";
-import ChevronRight from "../../../../_assets/icons/chevron-right.svg";
+} from "../../Comments"
+import ToggleMode from "../../Layout/ToggleMode"
+import { theme } from "../../Shared/styles-global"
+import LinkEdgePosts from "../../LinkEdgePosts"
+import ShareButtons from "../../ShareButtons"
+import ChevronRight from "../../../../_assets/icons/chevron-right.svg"
 import {
   Primary,
   Danger,
@@ -31,9 +31,10 @@ import {
   Info,
   Collapsable,
   U,
-} from "../../MdxComponents";
-import TableOfContents from "../../TOC/TableOfContents";
-import { withBreakpoints } from 'gatsby-plugin-breakpoints';
+} from "../../MdxComponents"
+import TableOfContents from "../../TOC/TableOfContents"
+import { withBreakpoints } from 'gatsby-plugin-breakpoints'
+import AdSense from "../../Adsense/Adsense"
 
 
 // 以下記事を参考に目次をつけようとしたが、失敗
@@ -44,159 +45,159 @@ import { withBreakpoints } from 'gatsby-plugin-breakpoints';
 
 class PostTemplate extends React.Component {
   constructor(props) {
-    super(props);
-    this.utterancesRef = React.createRef();
+    super(props)
+    this.utterancesRef = React.createRef()
     this.state = {
       location: "",
       script: undefined,
       texts: [],
-    };
+    }
   }
 
   componentDidMount() {
-    this.setState({ location: window.location.href });
+    this.setState({ location: window.location.href })
     if (isMobile) {
-      this.moveAnchorHeadings();
+      this.moveAnchorHeadings()
     }
-    this.zoomImages();
+    this.zoomImages()
     if (comments.facebook.enabled) {
-      this.registerFacebookComments();
+      this.registerFacebookComments()
     }
     if (comments.utterances.enabled && comments.utterances.repoUrl) {
-      this.registerUtterancesComments(comments.utterances.repoUrl);
+      this.registerUtterancesComments(comments.utterances.repoUrl)
     }
   }
 
   componentDidUpdate() {
     if (window.FB) {
-      window.FB.XFBML.parse();
+      window.FB.XFBML.parse()
     }
   }
 
   registerUtterancesComments = repo => {
     // Register utterances if it exists
     if (this.utterancesRef.current) {
-      const script = document.createElement("script");
-      script.src = "https://utteranc.es/client.js";
-      script.async = true;
-      script.crossOrigin = "anonymous";
-      script.setAttribute("repo", repo);
-      script.setAttribute("issue-term", "pathname");
-      script.setAttribute("label", "blog-comment");
+      const script = document.createElement("script")
+      script.src = "https://utteranc.es/client.js"
+      script.async = true
+      script.crossOrigin = "anonymous"
+      script.setAttribute("repo", repo)
+      script.setAttribute("issue-term", "pathname")
+      script.setAttribute("label", "blog-comment")
       script.setAttribute(
         "theme",
         `${theme.curTheme === "dark" ? "github-dark" : "github-light"}`
-      );
-      this.utterancesRef.current.appendChild(script);
+      )
+      this.utterancesRef.current.appendChild(script)
     }
   };
 
   registerFacebookComments = () => {
     // Unregister if already exists
-    this.unregisterFacebookComments();
+    this.unregisterFacebookComments()
     // Register facebook comments sdk
-    const script = document.createElement("script");
-    script.src = "https://connect.facebook.net/en_US/sdk.js";
-    script.async = true;
-    script.defer = true;
-    script.crossOrigin = "anonymous";
+    const script = document.createElement("script")
+    script.src = "https://connect.facebook.net/en_US/sdk.js"
+    script.async = true
+    script.defer = true
+    script.crossOrigin = "anonymous"
     // Set as state to unmount script
-    this.setState({ script: script });
-    document.body.appendChild(script);
+    this.setState({ script: script })
+    document.body.appendChild(script)
     window.fbAsyncInit = function () {
       window.FB.init({
         appId: comments.facebook.appId,
         autoLogAppEvents: true,
         xfbml: true,
         version: "v6.0",
-      });
-    };
+      })
+    }
   };
 
   unregisterFacebookComments = () => {
     // Unmount script and comments div
     if (this.state.script) {
-      document.body.removeChild(this.state.script);
-      const fbRoot = document.getElementById("fb-root");
+      document.body.removeChild(this.state.script)
+      const fbRoot = document.getElementById("fb-root")
 
       if (fbRoot) {
-        document.body.removeChild(fbRoot);
+        document.body.removeChild(fbRoot)
       }
 
-      this.setState({ script: undefined });
+      this.setState({ script: undefined })
     }
   };
 
   componentWillUnmount() {
-    this.unregisterFacebookComments();
+    this.unregisterFacebookComments()
   }
 
   zoomImages = () => {
-    const targetImg = "img";
-    const targetGatsbyImg = "gatsby-resp-image-image";
-    const images = Array.from(document.querySelectorAll(targetImg));
-    const filteredImages = [];
-    for (let i = 0; i < images.length; i++) {
-      const img = images[i];
+    const targetImg = "img"
+    const targetGatsbyImg = "gatsby-resp-image-image"
+    const images = Array.from(document.querySelectorAll(targetImg))
+    const filteredImages = []
+    for (let i = 0;i < images.length;i++) {
+      const img = images[i]
       // Filter profile image
-      const profile = document.querySelector(".img-profile");
+      const profile = document.querySelector(".img-profile")
       if (profile) {
-        const isProfile = profile.contains(img);
+        const isProfile = profile.contains(img)
         if (!isProfile) {
           // Set maximum width/height to non-gatsby images
           if (!img.classList.contains(targetGatsbyImg)) {
-            img.classList.add("img-not-gatsby-remark");
+            img.classList.add("img-not-gatsby-remark")
           }
-          filteredImages.push(img);
+          filteredImages.push(img)
         }
       }
     }
 
-    let mediumZoomBgColor = "";
-    const savedTheme = JSON.parse(storage.getItem("theme")) || "light";
+    let mediumZoomBgColor = ""
+    const savedTheme = JSON.parse(storage.getItem("theme")) || "light"
     mediumZoomBgColor =
-      savedTheme.mode === "light" ? theme.bgColorLight : theme.bgColorDark;
+      savedTheme.mode === "light" ? theme.bgColorLight : theme.bgColorDark
 
     // Apply medium zoom to images
     mediumZoom(filteredImages, {
       margin: 24,
       background: mediumZoomBgColor,
-    });
+    })
   };
 
   // Move anchor headings to the right side on mobile
   moveAnchorHeadings = () => {
-    const target = ".anchor-heading";
-    const anchors = Array.from(document.querySelectorAll(target));
+    const target = ".anchor-heading"
+    const anchors = Array.from(document.querySelectorAll(target))
     anchors.forEach(anchor => {
-      anchor.parentNode.appendChild(anchor);
-      anchor.classList.add("after");
-      anchor.classList.remove("before");
-    });
+      anchor.parentNode.appendChild(anchor)
+      anchor.classList.add("after")
+      anchor.classList.remove("before")
+    })
   };
 
   // Toggle loading for changing copy texts
   toggleLoading = text => {
     this.setState(prevState => {
-      const updatedTexts = [...prevState.texts];
+      const updatedTexts = [...prevState.texts]
       updatedTexts.forEach(t => {
         if (t.id === text.id) {
-          t.loadingChange = !t.loadingChange;
+          t.loadingChange = !t.loadingChange
         }
-      });
+      })
       return {
         texts: updatedTexts,
-      };
-    });
+      }
+    })
   };
 
   render() {
     // const breakpoints = useBreakpoint();
-    const { breakpoints } = this.props;
-    const post = this.props.data.mdx;
-    const isAboutPage = post.fields.slug.includes("/about");
-    const savedTheme = JSON.parse(storage.getItem("theme")) || "light";
-    const [month, day, year] = post.frontmatter.date ? post.frontmatter.date.split(/\//) : null | null;
+    const { breakpoints } = this.props
+    const post = this.props.data.mdx
+    const isAboutPage = post.fields.slug.includes("/about")
+    const savedTheme = JSON.parse(storage.getItem("theme")) || "light"
+    const [month, day, year] = post.frontmatter.date ? post.frontmatter.date.split(/\//) : null | null
 
 
     // Customize markdown component
@@ -209,14 +210,14 @@ class PostTemplate extends React.Component {
             </span>
             <span className="ul-children">{children}</span>
           </li>
-        );
+        )
       },
       "ol.li": ({ children }) => {
         return (
           <li>
             <span>{children}</span>
           </li>
-        );
+        )
       },
       hr: () => <Hr widthInPercent="100" verticalMargin="0.8rem" />,
       // Use the below components without having to import in *.mdx
@@ -227,7 +228,7 @@ class PostTemplate extends React.Component {
       Info,
       Collapsable,
       U,
-    };
+    }
 
     return (
       <Layout showTitle={true} isPostTemplate >
@@ -256,7 +257,7 @@ class PostTemplate extends React.Component {
             marginLeft: '2%',
             padding: '24px',
             position: breakpoints.sm ? 'static' : 'sticky',
-            top: '2%',
+            top: breakpoints.sm ? '0' : '2%',
           }}>
             {this.props.data.mdx.tableOfContents.items ? (
               <TableOfContents items={this.props.data.mdx.tableOfContents.items} theme={savedTheme} />
@@ -321,6 +322,7 @@ class PostTemplate extends React.Component {
         </div>
         {!isAboutPage && (
           <>
+            <AdSense />
             <ShareButtons location={this.state.location} />
             <LinkEdgePosts pageContext={this.props.pageContext} />
             <Hr widthInPercent="97" verticalMargin="0.8rem" />
@@ -345,7 +347,7 @@ class PostTemplate extends React.Component {
           </>
         )}
       </Layout>
-    );
+    )
   }
 }
 
@@ -370,9 +372,9 @@ export const postQuery = graphql`
       tableOfContents
     }
   }
-`;
+`
 
-export default withBreakpoints(PostTemplate);
+export default withBreakpoints(PostTemplate)
 
 const StyledHTML = styled.div`
   word-wrap: break-word;
@@ -512,4 +514,4 @@ const StyledHTML = styled.div`
       margin-right: 1rem;
     }
   }
-`;
+`

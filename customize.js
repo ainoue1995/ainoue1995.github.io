@@ -5,8 +5,8 @@ const config = {
   /* Site
   ========================================= */
   title: `デフテックの語学旅`,          // Displayed in header
-  description: `90dbの感音性難聴を持つ25歳の社会人の雑記ブログ　語学、旅行、聴覚障害について、エンジニア関係のことについて書きなぐってます`,     // Site description
-  maxWidth: "1200px",                  // Max width of website
+  description: `40ヶ国渡航した難聴エンジニアの雑記ブログ。語学、旅行、聴覚障害について、エンジニア関係のことについて書きなぐってます`,     // Site description
+  maxWidth: 1200,                  // Max width of website
   enableAbout: true,                  // Enables about page
   siteUrl: `https://aki25.com`,       // For sitemap & RSS feed
   useScrollIndicator: true,           // Use scroll indicator on top of screen in posts
@@ -14,7 +14,7 @@ const config = {
   /* Profile
   ========================================= */
   author: `Aki`,                             // Name shows on profile
-  profileDescription: "40ヶ国渡航した難聴エンジニア\n語学学習、旅行、ピアノが趣味",    // Shows under author name
+  profileDescription: "40ヶ国渡航した難聴エンジニア。 \r 趣味はピアノ、語学学習、サッカー、旅行",    // Shows under author name
   profileImageName: `180121_akio.jpg`,               // Place profile.jpg/.jpeg/.png in _assets folder
   location: "Tokyo, Shibuya",                        // Location under profileDescription. "" --> disabled
   footerLink: "",                                    // Link to page when you click footer name
@@ -47,12 +47,12 @@ const config = {
 
   /* More Custom Settings
   ========================================= */
-  defaultTheme: "light",                      // Options: dark / light -- applied to first visitors
+  defaultTheme: "dark",                      // Options: dark / light -- applied to first visitors
   showTimeToRead: false,                      // Shows time to read for each post in main page
   breakCodeLines: false,                      // Breaks long code lines instead of having horizontal scroll
   faviconSrc: `_assets/logo.gif`,        // Favicon
   gaTrackingId: `UA-107298351-3`,                           // Your google analytics tracking id--i.e. UA-*****
   googleAdSenseId: `ca-pub-2711163549214174`,                        // Your google AdSense client id--i.e. ca-pub-****
-};
+}
 
-module.exports = config;
+module.exports = config
