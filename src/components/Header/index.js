@@ -1,9 +1,9 @@
-import React from "react"
-import PropTypes from "prop-types"
-import { Link } from "gatsby"
-import styled from "styled-components"
-import { withTheme } from "styled-components"
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons"
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "gatsby";
+import styled from "styled-components";
+import { withTheme } from "styled-components";
+import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import {
   faGithub,
   faFacebook,
@@ -11,12 +11,12 @@ import {
   faTwitter,
   faLinkedin,
   faMedium,
-} from "@fortawesome/free-brands-svg-icons"
-import HeaderIcon from "../HeaderIcon"
-import ProgressBar from "./ProgressBar"
+} from "@fortawesome/free-brands-svg-icons";
+import HeaderIcon from "../HeaderIcon";
+import ProgressBar from "./ProgressBar";
 
-import config from "../../../customize"
-import configStyles from "../../../customize-styles"
+import config from "../../../customize";
+import configStyles from "../../../customize-styles";
 
 const Header = ({ siteTitle, showTitle, isPostTemplate }) => {
   // console.log("Header -> showTitle", showTitle)
@@ -89,25 +89,25 @@ const Header = ({ siteTitle, showTitle, isPostTemplate }) => {
         </StyledMediaIcons>
       </StyledMainHeaderInner>
     </StyledMainHeader>
-  )
-}
+  );
+};
 
 Header.propTypes = {
   siteTitle: PropTypes.string,
-}
+};
 
 Header.defaultProps = {
   siteTitle: ``,
-}
+};
 
-export default withTheme(Header)
+export default withTheme(Header);
 
 const StyledMainHeader = styled.header`
   font-family: ${configStyles.fontMain + configStyles.fontsBackUp};
   height: 55px;
   margin-top: ${config.useScrollIndicator ? "-5px" : "0"};
   margin-bottom: 1rem;
-`
+`;
 
 const StyledMainHeaderInner = styled.div`
   display: flex;
@@ -120,7 +120,7 @@ const StyledMainHeaderInner = styled.div`
   h1 {
     font-weight: 400;
   }
-`
+`;
 
 const StyledMediaIcons = styled.div`
   display: flex;
@@ -134,4 +134,4 @@ const StyledMediaIcons = styled.div`
       margin: 0 0.15rem;
     }
   }
-`
+`;

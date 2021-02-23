@@ -1,5 +1,15 @@
 const config = require("./customize")
 const rss = require("./gatsby-rss")
+const remarkSlug = require(`remark-slug`)
+
+const myCustomQueries = {
+  xs: '(max-width: 320px)',
+  sm: '(max-width: 720px)',
+  md: '(max-width: 1024px)',
+  l: '(max-width: 1536px)',
+  // portrait: '(orientation: portrait)',
+}
+
 
 module.exports = {
   siteMetadata: config,
@@ -8,12 +18,20 @@ module.exports = {
     `gatsby-plugin-sitemap`,
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-catch-links`,
-    `gatsby-plugin-offline`,
+    `gatsby-plugin-remove-serviceworker`,
     `gatsby-transformer-remark`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-sass`,
     `gatsby-remark-emoji`, // Emoji list: https://emojipedia.org/joypixels/
     rss,
+    'gatsby-plugin-breakpoints',
+    // レスポンシブ対応
+    // {
+    //   resolve: "gatsby-plugin-breakpoints",
+    //   options: {
+    //     queries: myCustomQueries,
+    //   }
+    // },
 
     // Read markdown/mdx files
     {
@@ -27,7 +45,7 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `assets`,
+        name: `images`,
         path: `${__dirname}/_assets`,
       },
     },
@@ -36,6 +54,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
+        remarkPlugins: [remarkSlug],
         extensions: [`.mdx`, `.md`],
         gatsbyRemarkPlugins: [
           // Adding title to code blocks. Usage: ```js:title=example.js
@@ -70,6 +89,12 @@ module.exports = {
               ignoreFileExtensions: [`png`, `jpg`, `jpeg`, `bmp`, `tiff`],
             },
           },
+          {
+            resolve: 'gatsby-plugin-google-adsense',
+            options: {
+              publisherId: `pub-2711163549214174`,
+            },
+          }
         ],
       },
     },

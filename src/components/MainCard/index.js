@@ -7,13 +7,14 @@ import Loader from "../Loader"
 import ToggleMode from "../Layout/ToggleMode"
 import { isMobile } from "react-device-detect"
 import { TAG } from "../../constants"
+import Adsense from "../Adsense/Adsense"
 
 class MainCard extends Component {
   state = {
     selectedTag: TAG.ALL,
     filteredPosts: [],
     tags: [],
-  }
+  };
 
   componentDidMount() {
     // Get current viewing tag from storage
@@ -39,14 +40,14 @@ class MainCard extends Component {
       return true
     }
     const posts = this.props.posts
-    for (let i = 0; i < posts.length; i++) {
+    for (let i = 0;i < posts.length;i++) {
       const tags = posts[i].node.frontmatter.tags
       if (tags && tags.length > 0 && tags.includes(storageTag)) {
         return true
       }
     }
     return false
-  }
+  };
 
   // Filter tags and sort them by occurrences
   filterTags = () => {
@@ -78,12 +79,12 @@ class MainCard extends Component {
       })
     })
 
-    sortedTags.sort(function(a, b) {
+    sortedTags.sort(function (a, b) {
       return tagsByFrequency[b] - tagsByFrequency[a]
     })
 
     this.setState({ tags: sortedTags })
-  }
+  };
 
   filterPosts = () => {
     const posts = this.props.posts
@@ -96,40 +97,44 @@ class MainCard extends Component {
     })
 
     this.setState({ filteredPosts: filtered })
-  }
+  };
 
   handleSelectTag = async tag => {
     // Save current tag in storage
     sessionStorage.setItem("curTag", tag)
     await this.setState({ selectedTag: tag })
     await this.filterPosts()
-  }
+  };
 
   render() {
     return (
       <StyledMainCard className="main-card">
         <StyledSwitchContainer className="switch-container">
           <ToggleMode />
+          {/* <ToggleMode setCurrentColorScheme={this.props.setCurrentColorScheme} currentColorScheme={this.props.currentColorScheme} /> */}
         </StyledSwitchContainer>
         <StyledSubMain className="sub-main">
           <StyledSubMainInner>
             <Profile home />
             {this.state.filteredPosts.length > 0 ? (
               <StyledTagsPosts>
-                <Tags
-                  selectedTag={this.state.selectedTag}
-                  selectTag={this.handleSelectTag}
-                  tags={this.state.tags}
-                />
+                <div>
+                  <Tags
+                    selectedTag={this.state.selectedTag}
+                    selectTag={this.handleSelectTag}
+                    tags={this.state.tags}
+                  />
+                  <Adsense />
+                </div>
                 <PostList
                   posts={this.state.filteredPosts.slice(0, this.props.loads)}
                 />
               </StyledTagsPosts>
             ) : (
-              <div style={{ textAlign: "center" }}>
-                <Loader />
-              </div>
-            )}
+                <div style={{ textAlign: "center" }}>
+                  <Loader />
+                </div>
+              )}
           </StyledSubMainInner>
         </StyledSubMain>
       </StyledMainCard>

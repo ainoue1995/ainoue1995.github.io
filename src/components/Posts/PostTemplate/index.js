@@ -32,6 +32,16 @@ import {
   Collapsable,
   U,
 } from "../../MdxComponents"
+import TableOfContents from "../../TOC/TableOfContents"
+import { withBreakpoints } from 'gatsby-plugin-breakpoints'
+import AdSense from "../../Adsense/Adsense"
+
+
+// 以下記事を参考に目次をつけようとしたが、失敗
+// https://kinniku.engineer/blog/gatsby-table-of-contents/
+// import { Box, Divider, Grid } from '@chakra-ui/core';
+// import { TOC, TOCDrawer } from '../../TOC/TOC';
+// import ContentArticle from '../../ContentArticle/ContentArticle';
 
 class PostTemplate extends React.Component {
   constructor(props) {
@@ -80,7 +90,7 @@ class PostTemplate extends React.Component {
       )
       this.utterancesRef.current.appendChild(script)
     }
-  }
+  };
 
   registerFacebookComments = () => {
     // Unregister if already exists
@@ -94,7 +104,7 @@ class PostTemplate extends React.Component {
     // Set as state to unmount script
     this.setState({ script: script })
     document.body.appendChild(script)
-    window.fbAsyncInit = function() {
+    window.fbAsyncInit = function () {
       window.FB.init({
         appId: comments.facebook.appId,
         autoLogAppEvents: true,
@@ -102,7 +112,7 @@ class PostTemplate extends React.Component {
         version: "v6.0",
       })
     }
-  }
+  };
 
   unregisterFacebookComments = () => {
     // Unmount script and comments div
@@ -116,7 +126,7 @@ class PostTemplate extends React.Component {
 
       this.setState({ script: undefined })
     }
-  }
+  };
 
   componentWillUnmount() {
     this.unregisterFacebookComments()
@@ -127,7 +137,7 @@ class PostTemplate extends React.Component {
     const targetGatsbyImg = "gatsby-resp-image-image"
     const images = Array.from(document.querySelectorAll(targetImg))
     const filteredImages = []
-    for (let i = 0; i < images.length; i++) {
+    for (let i = 0;i < images.length;i++) {
       const img = images[i]
       // Filter profile image
       const profile = document.querySelector(".img-profile")
@@ -153,7 +163,7 @@ class PostTemplate extends React.Component {
       margin: 24,
       background: mediumZoomBgColor,
     })
-  }
+  };
 
   // Move anchor headings to the right side on mobile
   moveAnchorHeadings = () => {
@@ -164,7 +174,7 @@ class PostTemplate extends React.Component {
       anchor.classList.add("after")
       anchor.classList.remove("before")
     })
-  }
+  };
 
   // Toggle loading for changing copy texts
   toggleLoading = text => {
@@ -179,11 +189,16 @@ class PostTemplate extends React.Component {
         texts: updatedTexts,
       }
     })
-  }
+  };
 
   render() {
+    // const breakpoints = useBreakpoint();
+    const { breakpoints } = this.props
     const post = this.props.data.mdx
     const isAboutPage = post.fields.slug.includes("/about")
+    const savedTheme = JSON.parse(storage.getItem("theme")) || "light"
+    const [month, day, year] = post.frontmatter.date ? post.frontmatter.date.split(/\//) : null | null
+
 
     // Customize markdown component
     const mdxComponents = {
@@ -216,68 +231,98 @@ class PostTemplate extends React.Component {
     }
 
     return (
-      <Layout showTitle={true} isPostTemplate>
+      <Layout showTitle={true} isPostTemplate >
         <SEO title={post.frontmatter.title} description={post.excerpt} />
+        {!isAboutPage ? (
+          <LinkEdgePosts pageContext={this.props.pageContext} />
+        ) : ''}
         <div
           className="switch-container"
           style={{ textAlign: "end", margin: "0 1.1rem" }}
         >
           <ToggleMode />
         </div>
-        <StyledHTML className="post-html">
-          {!isAboutPage && (
-            <>
-              <h1 className="post-title">{post.frontmatter.title}</h1>
-              {/* Show tag & date */}
-              <div
-                className="post-data"
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginBottom: "0.5rem",
-                }}
-              >
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <div style={{ display: "flex", flexWrap: "wrap" }}>
-                    {post.frontmatter.tags &&
-                      post.frontmatter.tags.map((tag, i) => (
-                        <p
-                          key={i}
-                          style={{
-                            margin: "0.3rem 0.3rem",
-                            padding: "0.15rem 0.4rem",
-                            border: "1px solid #aaa",
-                            borderRadius: "5px",
-                            fontSize: "0.8rem",
-                          }}
-                        >
-                          {tag}
-                        </p>
-                      ))}
-                  </div>
-                </div>
-                <p
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          flexDirection: breakpoints.sm ? 'column' : 'row-reverse',
+          // width: '100%'
+        }}>
+          <div style={{
+            // display: 'flex',
+            boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)',
+            borderRadius: '12',
+            height: '10%',
+            marginRight: '2%',
+            marginLeft: '2%',
+            padding: '24px',
+            position: breakpoints.sm ? 'static' : 'sticky',
+            top: breakpoints.sm ? '0' : '2%',
+          }}>
+            {this.props.data.mdx.tableOfContents.items ? (
+              <TableOfContents items={this.props.data.mdx.tableOfContents.items} theme={savedTheme} />
+            ) : ''}
+          </div>
+          <StyledHTML className="post-html"
+            style={{
+              width: breakpoints.sm ? '100%' : '70%',
+            }}
+          >
+            {!isAboutPage && (
+              <>
+                <h1 style={{ border: 'none' }} className="post-title">{post.frontmatter.title}</h1>
+                {/* Show tag & date */}
+                <div
+                  className="post-data"
                   style={{
-                    fontStyle: "italic",
-                    margin: "0",
-                    marginBottom: "0.3rem",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: "0.5rem",
                   }}
                 >
-                  {post.frontmatter.date}
-                </p>
-              </div>
-              <Hr />
-            </>
-          )}
-          {/* Render mdx */}
-          <MDXProvider components={mdxComponents}>
-            <MDXRenderer>{post.body}</MDXRenderer>
-          </MDXProvider>
-        </StyledHTML>
-
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <div style={{ display: "flex", flexWrap: "wrap" }}>
+                      {post.frontmatter.tags &&
+                        post.frontmatter.tags.map((tag, i) => (
+                          <p
+                            key={i}
+                            style={{
+                              margin: "0.3rem 0.3rem",
+                              padding: "0.15rem 0.4rem",
+                              border: "1px solid #aaa",
+                              borderRadius: "5px",
+                              fontSize: "0.8rem",
+                            }}
+                          >
+                            {tag}
+                          </p>
+                        ))}
+                    </div>
+                  </div>
+                  <p
+                    style={{
+                      fontStyle: "italic",
+                      margin: "0",
+                      marginBottom: "0.3rem",
+                    }}
+                  >
+                    {/* {post.frontmatter.date} */}
+                    {year}/{month}/{day}
+                  </p>
+                </div>
+                <Hr />
+              </>
+            )}
+            {/* Render mdx */}
+            <MDXProvider components={mdxComponents}>
+              <MDXRenderer>{post.body}</MDXRenderer>
+            </MDXProvider>
+          </StyledHTML>
+        </div>
         {!isAboutPage && (
           <>
+            <AdSense />
             <ShareButtons location={this.state.location} />
             <LinkEdgePosts pageContext={this.props.pageContext} />
             <Hr widthInPercent="97" verticalMargin="0.8rem" />
@@ -308,6 +353,11 @@ class PostTemplate extends React.Component {
 
 export const postQuery = graphql`
   query BlogPostByPath($slug: String!) {
+    site {
+      siteMetadata {
+        siteUrl
+      }
+    }
     mdx(fields: { slug: { eq: $slug } }) {
       body
       excerpt
@@ -319,11 +369,12 @@ export const postQuery = graphql`
         date(formatString: "MM/DD/YYYY")
         tags
       }
+      tableOfContents
     }
   }
 `
 
-export default PostTemplate
+export default withBreakpoints(PostTemplate)
 
 const StyledHTML = styled.div`
   word-wrap: break-word;
@@ -333,6 +384,9 @@ const StyledHTML = styled.div`
   font-size: 105%;
   h1 {
     margin-top: 2.5rem;
+    border-left: solid 10px ${() => setThemeVars(theme.headerColorLight, theme.headerColorDark)};
+    padding-left: 10px;
+    light-height: 2;
   }
 
   .post-title {
@@ -342,14 +396,23 @@ const StyledHTML = styled.div`
 
   h2 {
     margin-top: 2rem;
+    border-left: solid 8px ${() => setThemeVars(theme.headerColorLight, theme.headerColorDark)};
+    padding-left: 10px;
+    light-height: 1.7;
   }
 
   h3 {
     margin-top: 1.3rem;
+    border-left: solid 4px ${() => setThemeVars(theme.headerColorLight, theme.headerColorDark)};
+    padding-left: 10px;
+    light-height: 1.4;
   }
 
   h4 {
     margin-top: 1rem;
+    border-left: solid 2px ${() => setThemeVars(theme.headerColorLight, theme.headerColorDark)};
+    padding-left: 10px;
+    light-height: 1;
   }
 
   h5 {
@@ -401,10 +464,10 @@ const StyledHTML = styled.div`
           height: 0.75rem;
           margin-right: 0.5rem;
           fill: ${() =>
-            setThemeVars(
-              configStyles.fontColorLight,
-              configStyles.fontColorDark
-            )};
+    setThemeVars(
+      configStyles.fontColorLight,
+      configStyles.fontColorDark
+    )};
         }
       }
       span.ul-children {

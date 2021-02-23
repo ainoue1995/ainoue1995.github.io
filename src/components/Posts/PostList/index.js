@@ -1,12 +1,12 @@
-import React from "react"
-import PostCard from "../PostCard"
+import React from "react";
+import PostCard from "../PostCard";
 
 const PostList = ({ posts }) => {
   let filteredPosts = posts.filter(
     post =>
       post.node.fields.slug !== "/about/" &&
       post.node.fields.slug !== "/__do-not-remove/"
-  )
+  );
   return (
     <div className="posts-list">
       {filteredPosts.map(post => {
@@ -22,11 +22,14 @@ const PostList = ({ posts }) => {
                 : post.node.excerpt
             }
             timeToRead={post.node.timeToRead}
+            pic={post.node.frontmatter.socialImage
+              ? post.node.frontmatter.socialImage.childImageSharp.fluid
+              : null}
           />
-        )
+        );
       })}
     </div>
-  )
-}
+  );
+};
 
-export default PostList
+export default PostList;
